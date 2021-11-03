@@ -8,8 +8,6 @@ link_directories(
     "${PROJECT_SOURCE_DIR}/lib/libhv"
 )
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
-
 include_directories(.)
 include_directories(${PROJECT_SOURCE_DIR})
 include_directories(${PROJECT_SOURCE_DIR}/servercommon)

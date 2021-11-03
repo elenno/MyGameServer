@@ -2,7 +2,9 @@
 #define __NETWORK_MODULE_HPP__
 
 #include <string>
-#include "hv.h"
+#include "libhv/hv.h"
+#include "libhv/hloop.h"
+#include "libhv/Channel.h"
 
 struct NetworkModuleInitData
 {
@@ -26,11 +28,11 @@ private:
 	void OnAccept(hio_t* io);
 	hloop_t* GetNextLoop();
 	void OnAcceptInWorkerLoop(hevent_t* ev);
-	const SocketChannelPtr& AddChannel(hio_t* io);
-	void RemoveChannel(const SocketChannelPtr& channel);
-	void RegisterOnReadCallback(const SocketChannelPtr& channel);
-	void RegisterOnWriteCallback(const SocketChannelPtr& channel);
-	void RegisterOnCloseCallback(const SocketChannelPtr& channel);
+	const hv::SocketChannelPtr& AddChannel(hio_t* io);
+	void RemoveChannel(const hv::SocketChannelPtr& channel);
+	void RegisterOnReadCallback(const hv::SocketChannelPtr& channel);
+	void RegisterOnWriteCallback(const hv::SocketChannelPtr& channel);
+	void RegisterOnCloseCallback(const hv::SocketChannelPtr& channel);
 
 	std::string m_host;
 	int m_port;
@@ -42,7 +44,7 @@ private:
 	std::vector<std::thread> m_worker_threads;
 
 	// fd => SocketChannelPtr
-	std::map<int, SocketChannelPtr> m_channels; // GUAREDE_BY(m_channel_mutex_)
+	std::map<int, hv::SocketChannelPtr> m_channels; // GUAREDE_BY(m_channel_mutex_)
 	std::mutex                      m_channel_mutex_;
 };
 

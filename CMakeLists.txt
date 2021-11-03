@@ -5,5 +5,9 @@ cmake_minimum_required (VERSION 3.8)
 
 project ("MyGameServer")
 
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+message("SOURCE_DIR=${PROJECT_SOURCE_DIR}")
+
 # 包含子项目。
 add_subdirectory ("MyGameServer")
