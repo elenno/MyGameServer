@@ -3,17 +3,20 @@
 
 #include "MyGameServer.h"
 #include "servercommon/networkmodule/networkmodule.hpp"
+#include "libhv/EventLoop.h"
 
 int main()
 {
 	NetworkModuleInitData data;
-	data.host = "0.0.0.0";
-	data.port = 8888;
-	data.worker_num = 4;
 
 	NetworkModule network;
 	network.Init(data);
 	network.Start();
+
+	network.Listen(8888);
+
+	hv::EventLoop* loop = new hv::EventLoop();
+	loop->run();
 
 	return 0;
 }
