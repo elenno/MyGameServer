@@ -15,8 +15,9 @@ int main()
 
 	network.Listen(8888);
 
-	hv::EventLoop* loop = new hv::EventLoop();
-	loop->run();
+	printf("start listen to 8888\n");
+
+	while (1) hv_sleep(100);
 
 	return 0;
 }

@@ -11,3 +11,4 @@ message("SOURCE_DIR=${PROJECT_SOURCE_DIR}")
 
 # 包含子项目。
 add_subdirectory ("MyGameServer")
+add_subdirectory ("MyClient")

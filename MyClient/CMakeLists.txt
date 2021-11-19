@@ -8,7 +8,7 @@ link_directories(
     "${PROJECT_SOURCE_DIR}/lib/libhv"
 )
 
-set(EXECUTABLE_NAME "MyGameServer")
+set(EXECUTABLE_NAME "MyClient")
 
 include_directories(.)
 include_directories(${PROJECT_SOURCE_DIR})
