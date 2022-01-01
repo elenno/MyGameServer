@@ -9,6 +9,8 @@
 
 int main()
 {
+	hlog_set_file("log/hlog");
+
 	NetworkModule* network_module_ptr = new NetworkModule();
 	ModuleManager::Instance().RegisterModule("NetworkModule", network_module_ptr);
 
