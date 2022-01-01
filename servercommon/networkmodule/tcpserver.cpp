@@ -13,21 +13,23 @@ TcpServer::~TcpServer()
 
 }
 
-bool TcpServer::ListenAndStartAccept(int post, const char* host /* = "0.0.0.0" */)
+bool TcpServer::ListenAndStartAccept(int port, const char* host /* = "0.0.0.0" */)
 {
-	int fd = this->createsocket(post, host);
+	int fd = this->createsocket(port, host);
 	if (fd < 0) return false;
 
 	acceptor_loop.loop()->postEvent(
 		[this, fd](hv::Event* ev) {
-			assert(fd >= 0);
-			hio_t* listenio = haccept(this->acceptor_loop.hloop(), fd, onAccept);
+			assert(fd >= 0);	
+			hio_t* listenio = haccept(this->acceptor_loop.hloop(), fd, onAccept);		
 			hevent_set_userdata(listenio, this);
 			if (tls) {
 				hio_enable_ssl(listenio);
 			}
 		}
 	);
+
+	printf("start listen to port[%d]\n", port);
 
 	return true;
 }
@@ -117,6 +119,21 @@ size_t TcpServer::connectionNum()
 {
 	std::lock_guard<std::mutex> locker(mutex_);
 	return channels.size();
+}
+
+void TcpServer::SetConnectionCallback(hv::ConnectionCallback cb)
+{
+	onConnection = cb;
+}
+
+void TcpServer::SetMessageCallback(hv::MessageCallback cb)
+{
+	onMessage = cb;
+}
+
+void TcpServer::SetWriteCompleteCallback(hv::WriteCompleteCallback cb)
+{
+	onWriteComplete = cb;
 }
 
 void TcpServer::onAccept(hio_t* connio)

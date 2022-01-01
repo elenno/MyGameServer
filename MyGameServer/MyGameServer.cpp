@@ -4,20 +4,28 @@
 #include "MyGameServer.h"
 #include "servercommon/networkmodule/networkmodule.hpp"
 #include "libhv/EventLoop.h"
+#include "servercommon/module_manager.hpp"
+#include "servercommon/businessmodule/businessmodule.hpp"
 
 int main()
 {
-	NetworkModuleInitData data;
+	NetworkModule* network_module_ptr = new NetworkModule();
+	ModuleManager::Instance().RegisterModule("NetworkModule", network_module_ptr);
 
-	NetworkModule network;
-	network.Init(data);
-	network.Start();
+	BusinessModule* business_module_ptr = new BusinessModule();
+	ModuleManager::Instance().RegisterModule("BusinessModule", business_module_ptr);
 
-	network.Listen(8888);
+	ModuleManager::Instance().Run();
 
-	printf("start listen to 8888\n");
-
-	while (1) hv_sleep(100);
+	char command[1024] = { 0 };
+	while (gets_s(command))
+	{
+		if (strcmp(command, "stop") == 0)
+		{
+			break;
+		}
+	}
+	ModuleManager::Instance().Stop();
 
 	return 0;
 }

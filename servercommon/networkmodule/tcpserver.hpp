@@ -44,6 +44,10 @@ public:
 
     size_t connectionNum();
 
+    void SetConnectionCallback(hv::ConnectionCallback cb);
+    void SetMessageCallback(hv::MessageCallback cb);
+    void SetWriteCompleteCallback(hv::WriteCompleteCallback cb);
+
 private:
     static void onAccept(hio_t* connio);
 

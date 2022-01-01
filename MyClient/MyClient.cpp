@@ -45,11 +45,11 @@ int main()
 		printf("> %.*s\n", (int)buf->size(), (char*)buf->data());
 	};
 	// reconnect: 1,2,4,8,10,10,10...
-	hv::ReconnectInfo reconn;
-	reconn.min_delay = 1000;
-	reconn.max_delay = 10000;
-	reconn.delay_policy = 2;
-	client.setReconnect(&reconn);
+	//hv::ReconnectInfo reconn;
+	//reconn.min_delay = 1000;
+	//reconn.max_delay = 10000;
+	//reconn.delay_policy = 2;
+	//client.setReconnect(&reconn);
 	client.start();
 
 	while (1) hv_sleep(1);

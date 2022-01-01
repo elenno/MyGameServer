@@ -24,6 +24,15 @@
     <ClCompile Include="..\servercommon\networkmodule\tcpserver.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\servercommon\imodule.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\module_manager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\businessmodule\businessmodule.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyGameServer.h">
@@ -33,6 +42,18 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\servercommon\networkmodule\tcpserver.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\module_def.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\imodule.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\module_manager.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\businessmodule\businessmodule.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
