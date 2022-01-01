@@ -24,10 +24,12 @@ int main()
 	{
 		if (strcmp(command, "stop") == 0)
 		{
+			printf("Server Will Stop Now\n");
 			break;
 		}
 	}
 	ModuleManager::Instance().Stop();
 
+	system("pause");
 	return 0;
 }
