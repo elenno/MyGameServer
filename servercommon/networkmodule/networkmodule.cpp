@@ -1,6 +1,8 @@
 #include "networkmodule.hpp"
 #include "libhv/hloop.h"
 #include "tcpserver.hpp"
+#include "servercommon/module_manager.hpp"
+#include "servercommon/module_def.hpp"
 
 NetworkModule::NetworkModule()
 {
@@ -71,7 +73,12 @@ void NetworkModule::OnConnection(const hv::SocketChannelPtr& channel)
 
 void NetworkModule::OnMessage(const hv::SocketChannelPtr& channel, hv::Buffer* buffer)
 {
-	printf("OnMessage peeraddr[%s] msg[%s]\n", channel->peeraddr().c_str(), (const char*)buffer->data());
+	printf("OnMessage peeraddr[%s] msg[%s] length[%u]\n", channel->peeraddr().c_str(), (const char*)buffer->data(), (unsigned int)buffer->size());
+
+	ModuleEventMsg msg;
+	msg.type = NETWORK_TO_BUSINESS;
+	msg.CopyFromHVBuffer(buffer);
+	ModuleManager::Instance().PostEvent(MODULE_TYPE_BUSINESS, msg);
 }
 
 void NetworkModule::OnWriteComplete(const hv::SocketChannelPtr& channel, hv::Buffer* buffer)

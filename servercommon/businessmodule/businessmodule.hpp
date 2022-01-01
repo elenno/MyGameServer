@@ -17,6 +17,9 @@ public:
 	virtual int Release();
 
 	virtual void OnEventMessage(const ModuleEventMsg& msg);
+
+private:
+	void OnRecvMsgFromNetwork(const char* data, unsigned int length);
 };
 
 #endif

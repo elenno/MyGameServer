@@ -1,4 +1,5 @@
 #include "businessmodule.hpp"
+#include "servercommon/module_def.hpp"
 
 BusinessModule::BusinessModule()
 {
@@ -34,6 +35,16 @@ int BusinessModule::Release()
 
 void BusinessModule::OnEventMessage(const ModuleEventMsg& msg)
 {
+	if (NETWORK_TO_BUSINESS == msg.type)
+	{
+		this->OnRecvMsgFromNetwork(msg.buffer, msg.data_length);
+	}
 
+}
+
+void BusinessModule::OnRecvMsgFromNetwork(const char* data, unsigned int length)
+{
+	std::string msg(data, length);
+	printf("OnRecvMsgFromNetwork data[%s] length[%u]\n", msg.c_str(), (unsigned int)msg.length());
 }
 

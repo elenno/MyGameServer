@@ -25,7 +25,7 @@ bool ModuleManager::PostEvent(const std::string& module_name, const ModuleEventM
 		mod->OnEventMessage(msg);
 		if (msg.buffer != nullptr)
 		{
-			delete msg.buffer;
+			msg.Free();
 		}
 	});
 
