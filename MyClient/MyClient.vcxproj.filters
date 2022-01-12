@@ -13,15 +13,29 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{e9146ca9-33ab-4cb5-ab94-cec76ceeb0c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyClient.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.cc">
+      <Filter>proto</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyClient.h">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.h">
+      <Filter>proto</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\servercommon\protobuf\proto\testPackage.testProto.proto">
+      <Filter>proto</Filter>
+    </None>
   </ItemGroup>
 </Project>

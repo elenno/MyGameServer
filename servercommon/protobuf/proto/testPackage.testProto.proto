@@ -1,0 +1,5 @@
+syntax = "proto3";
+
+message SearchRequest {
+  string cur_time = 1;
+}

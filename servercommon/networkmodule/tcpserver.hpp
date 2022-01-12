@@ -7,10 +7,14 @@
 
 #include "libhv/EventLoop.h"
 #include "libhv/EventLoopThreadPool.h"
-#include "libhv/Callback.h"
 #include "libhv/Channel.h"
 
 class TcpServer {
+public:
+	typedef std::function<void(const hv::SocketChannelPtr&)>            ConnectionCallback;
+	typedef std::function<void(const hv::SocketChannelPtr&, hv::Buffer*)>   MessageCallback;
+	typedef std::function<void(const hv::SocketChannelPtr&, hv::Buffer*)>   WriteCompleteCallback;
+
 public:
     TcpServer();
 
@@ -44,9 +48,9 @@ public:
 
     size_t connectionNum();
 
-    void SetConnectionCallback(hv::ConnectionCallback cb);
-    void SetMessageCallback(hv::MessageCallback cb);
-    void SetWriteCompleteCallback(hv::WriteCompleteCallback cb);
+    void SetConnectionCallback(ConnectionCallback cb);
+    void SetMessageCallback(MessageCallback cb);
+    void SetWriteCompleteCallback(WriteCompleteCallback cb);
 
 private:
     static void onAccept(hio_t* connio);
@@ -55,10 +59,11 @@ public:
     bool                    tls;
     bool                    enable_unpack;
     unpack_setting_t        unpack_setting;
-    // Callback
-    hv::ConnectionCallback      onConnection;
-    hv::MessageCallback         onMessage;
-    hv::WriteCompleteCallback   onWriteComplete;
+
+	// Callback
+    ConnectionCallback      onConnection;
+    MessageCallback         onMessage;
+    WriteCompleteCallback   onWriteComplete;
 
     uint32_t                max_connections;
 

@@ -30,6 +30,9 @@ HV_EXPORT const char* socket_strerror(int err);
 
 typedef int socklen_t;
 
+void WSAInit();
+void WSADeinit();
+
 HV_INLINE int blocking(int sockfd) {
     unsigned long nb = 0;
     return ioctlsocket(sockfd, FIONBIO, &nb);
@@ -62,8 +65,12 @@ HV_INLINE int nonblocking(int sockfd) {
 
 typedef int         SOCKET;
 #define INVALID_SOCKET  -1
-#define closesocket close
+#define closesocket(fd) close(fd)
 
+#endif
+
+#ifndef SAFE_CLOSESOCKET
+#define SAFE_CLOSESOCKET(fd)  do {if ((fd) >= 0) {closesocket(fd); (fd) = -1;}} while(0)
 #endif
 
 //-----------------------------sockaddr_u----------------------------------------------
@@ -76,9 +83,15 @@ typedef union {
 #endif
 } sockaddr_u;
 
+HV_EXPORT bool is_ipv4(const char* host);
+HV_EXPORT bool is_ipv6(const char* host);
+HV_INLINE bool is_ipaddr(const char* host) {
+    return is_ipv4(host) || is_ipv6(host);
+}
+
 // @param host: domain or ip
 // @retval 0:succeed
-HV_EXPORT int Resolver(const char* host, sockaddr_u* addr);
+HV_EXPORT int ResolveAddr(const char* host, sockaddr_u* addr);
 
 HV_EXPORT const char* sockaddr_ip(sockaddr_u* addr, char *ip, int len);
 HV_EXPORT uint16_t sockaddr_port(sockaddr_u* addr);
@@ -121,7 +134,7 @@ HV_EXPORT int Bind(int port, const char* host DEFAULT(ANYADDR), int type DEFAULT
 HV_EXPORT int Listen(int port, const char* host DEFAULT(ANYADDR));
 
 // @return connfd
-// Resolver -> socket -> nonblocking -> connect
+// ResolveAddr -> socket -> nonblocking -> connect
 HV_EXPORT int Connect(const char* host, int port, int nonblock DEFAULT(0));
 // Connect(host, port, 1)
 HV_EXPORT int ConnectNonblock(const char* host, int port);

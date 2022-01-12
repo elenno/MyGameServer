@@ -121,17 +121,17 @@ size_t TcpServer::connectionNum()
 	return channels.size();
 }
 
-void TcpServer::SetConnectionCallback(hv::ConnectionCallback cb)
+void TcpServer::SetConnectionCallback(ConnectionCallback cb)
 {
 	onConnection = cb;
 }
 
-void TcpServer::SetMessageCallback(hv::MessageCallback cb)
+void TcpServer::SetMessageCallback(MessageCallback cb)
 {
 	onMessage = cb;
 }
 
-void TcpServer::SetWriteCompleteCallback(hv::WriteCompleteCallback cb)
+void TcpServer::SetWriteCompleteCallback(WriteCompleteCallback cb)
 {
 	onWriteComplete = cb;
 }

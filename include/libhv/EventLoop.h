@@ -27,8 +27,10 @@ public:
         setStatus(kInitializing);
         if (loop) {
             loop_ = loop;
+            is_loop_owner = false;
         } else {
             loop_ = hloop_new(HLOOP_FLAG_AUTO_FREE);
+            is_loop_owner = true;
         }
         setStatus(kInitialized);
     }
@@ -44,15 +46,23 @@ public:
     // @brief Run loop forever
     void run() {
         if (loop_ == NULL) return;
+        if (status() == kRunning) return;
         ThreadLocalStorage::set(ThreadLocalStorage::EVENT_LOOP, this);
         setStatus(kRunning);
         hloop_run(loop_);
         setStatus(kStopped);
     }
 
+    // stop thread-safe
     void stop() {
         if (loop_ == NULL) return;
-        if (status() < kRunning) return;
+        if (status() < kRunning) {
+            if (is_loop_owner) {
+                hloop_free(&loop_);
+            }
+            loop_ = NULL;
+            return;
+        }
         setStatus(kStopping);
         hloop_stop(loop_);
         loop_ = NULL;
@@ -75,14 +85,17 @@ public:
     }
 
     // Timer interfaces: setTimer, killTimer, resetTimer
-    TimerID setTimer(int timeout_ms, TimerCallback cb, int repeat = INFINITE) {
+    TimerID setTimer(int timeout_ms, TimerCallback cb, uint32_t repeat = INFINITE, TimerID timerID = INVALID_TIMER_ID) {
         if (loop_ == NULL) return INVALID_TIMER_ID;
         htimer_t* htimer = htimer_add(loop_, onTimer, timeout_ms, repeat);
+        if (timerID == INVALID_TIMER_ID) {
+            timerID = hevent_id(htimer);
+        } else {
+            hevent_set_id(htimer, timerID);
+        }
 
         Timer timer(htimer, cb, repeat);
         hevent_set_userdata(htimer, this);
-
-        TimerID timerID = hevent_id(htimer);
 
         mutex_.lock();
         timers[timerID] = timer;
@@ -167,31 +180,25 @@ private:
         EventLoop* loop = (EventLoop*)hevent_userdata(htimer);
 
         TimerID timerID = hevent_id(htimer);
-        TimerCallback cb = NULL;
+        Timer* timer = NULL;
 
         loop->mutex_.lock();
         auto iter = loop->timers.find(timerID);
         if (iter != loop->timers.end()) {
-            Timer& timer = iter->second;
-            cb = timer.cb;
-            --timer.repeat;
+            timer = &iter->second;
+            if (timer->repeat != INFINITE) --timer->repeat;
         }
         loop->mutex_.unlock();
 
-        if (cb) cb(timerID);
-
-        // NOTE: refind iterator, because iterator may be invalid
-        // if the timer-related interface is called in the callback function above.
-        loop->mutex_.lock();
-        iter = loop->timers.find(timerID);
-        if (iter != loop->timers.end()) {
-            Timer& timer = iter->second;
-            if (timer.repeat == 0) {
+        if (timer) {
+            if (timer->cb) timer->cb(timerID);
+            if (timer->repeat == 0) {
                 // htimer_t alloc and free by hloop, but timers[timerID] managed by EventLoop.
-                loop->timers.erase(iter);
+                loop->mutex_.lock();
+                loop->timers.erase(timerID);
+                loop->mutex_.unlock();
             }
         }
-        loop->mutex_.unlock();
     }
 
     static void onCustomEvent(hevent_t* hev) {
@@ -207,6 +214,7 @@ private:
 
 private:
     hloop_t*                    loop_;
+    bool                        is_loop_owner;
     std::mutex                  mutex_;
     std::queue<EventPtr>        customEvents;   // GUAREDE_BY(mutex_)
     std::map<TimerID, Timer>    timers;         // GUAREDE_BY(mutex_)
@@ -218,21 +226,25 @@ typedef std::shared_ptr<EventLoop> EventLoopPtr;
 static inline EventLoop* tlsEventLoop() {
     return (EventLoop*)ThreadLocalStorage::get(ThreadLocalStorage::EVENT_LOOP);
 }
+#define currentThreadEventLoop tlsEventLoop()
 
-static inline TimerID setTimer(int timeout_ms, TimerCallback cb, int repeat = INFINITE) {
+static inline TimerID setTimer(int timeout_ms, TimerCallback cb, uint32_t repeat = INFINITE) {
     EventLoop* loop = tlsEventLoop();
+    assert(loop != NULL);
     if (loop == NULL) return INVALID_TIMER_ID;
     return loop->setTimer(timeout_ms, cb, repeat);
 }
 
 static inline void killTimer(TimerID timerID) {
     EventLoop* loop = tlsEventLoop();
+    assert(loop != NULL);
     if (loop == NULL) return;
     loop->killTimer(timerID);
 }
 
 static inline void resetTimer(TimerID timerID) {
     EventLoop* loop = tlsEventLoop();
+    assert(loop != NULL);
     if (loop == NULL) return;
     loop->resetTimer(timerID);
 }

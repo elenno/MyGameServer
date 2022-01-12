@@ -17,12 +17,17 @@
  *
  * @function
  * Content, ContentLength, ContentType
- * Get, Set
+ * ParseUrl, ParseBody
+ * DumpUrl, DumpHeaders, DumpBody, Dump
+ * GetJson, GetForm, GetUrlEncoded
  * GetHeader, GetParam, GetString, GetBool, GetInt, GetFloat
- * String, Data, File, Json
+ * String, Data, File, Json, FormFile, SetFormData, SetUrlEncoded
+ * Get, Set
  *
  * @example
- * see examples/httpd
+ * examples/http_server_test.cpp
+ * examples/http_client_test.cpp
+ * examples/httpd
  *
  */
 
@@ -49,20 +54,29 @@ struct HNetAddr {
     }
 };
 
+// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Set-Cookie
 // Cookie: sessionid=1; domain=.example.com; path=/; max-age=86400; secure; httponly
 struct HV_EXPORT HttpCookie {
     std::string name;
     std::string value;
     std::string domain;
     std::string path;
+    std::string expires;
     int         max_age;
     bool        secure;
     bool        httponly;
+    enum SameSite {
+        Default,
+        Strict,
+        Lax,
+        None
+    } samesite;
 
     HttpCookie() {
-        max_age = 86400;
+        max_age = 0;
         secure = false;
         httponly = false;
+        samesite = Default;
     }
 
     bool parse(const std::string& str);
@@ -76,6 +90,9 @@ typedef std::string                                             http_body;
 typedef std::function<void(const http_headers& headers)>        http_head_cb;
 typedef std::function<void(const char* data, size_t size)>      http_body_cb;
 typedef std::function<void(const char* data, size_t size)>      http_chunked_cb;
+
+HV_EXPORT extern http_headers DefaultHeaders;
+HV_EXPORT extern http_body    NoBody;
 
 class HV_EXPORT HttpMessage {
 public:
@@ -112,7 +129,7 @@ public:
 
     template<typename T>
     void Set(const char* key, const T& value) {
-        switch (content_type) {
+        switch (ContentType()) {
         case APPLICATION_JSON:
             json[key] = value;
             break;
@@ -144,21 +161,53 @@ public:
                     {1, 2, 3}
                 ));
      */
+    // Content-Type: application/json
     template<typename T>
     int Json(const T& t) {
         content_type = APPLICATION_JSON;
         json = t;
         return 200;
     }
-
-    void FormFile(const char* name, const char* filepath) {
-        content_type = MULTIPART_FORM_DATA;
-        form[name] = FormData(NULL, filepath);
+    const hv::Json& GetJson() {
+        if (json.empty() && ContentType() == APPLICATION_JSON) {
+            ParseBody();
+        }
+        return json;
     }
 
+    // Content-Type: multipart/form-data
+    template<typename T>
+    void SetFormData(const char* name, const T& t) {
+        form[name] = FormData(t);
+    }
+    void SetFormFile(const char* name, const char* filepath) {
+        form[name] = FormData(NULL, filepath);
+    }
+    int FormFile(const char* name, const char* filepath) {
+        content_type = MULTIPART_FORM_DATA;
+        form[name] = FormData(NULL, filepath);
+        return 200;
+    }
+    const MultiPart& GetForm() {
+        if (form.empty() && ContentType() == MULTIPART_FORM_DATA) {
+            ParseBody();
+        }
+        return form;
+    }
+    std::string GetFormData(const char* name, const std::string& defvalue = hv::empty_string) {
+        if (form.empty() && ContentType() == MULTIPART_FORM_DATA) {
+            ParseBody();
+        }
+        auto iter = form.find(name);
+        return iter == form.end() ? defvalue : iter->second.content;
+    }
     int SaveFormFile(const char* name, const char* path) {
-        if (content_type != MULTIPART_FORM_DATA) {
+        if (ContentType() != MULTIPART_FORM_DATA) {
             return HTTP_STATUS_BAD_REQUEST;
+        }
+        if (form.empty()) {
+            ParseBody();
+            if (form.empty()) return HTTP_STATUS_BAD_REQUEST;
         }
         const FormData& formdata = form[name];
         if (formdata.content.empty()) {
@@ -174,6 +223,25 @@ public:
         }
         file.write(formdata.content.data(), formdata.content.size());
         return 200;
+    }
+
+    // Content-Type: application/x-www-form-urlencoded
+    template<typename T>
+    void SetUrlEncoded(const char* key, const T& t) {
+        kv[key] = hv::to_string(t);
+    }
+    const hv::KeyValue& GetUrlEncoded() {
+        if (kv.empty() && ContentType() == X_WWW_FORM_URLENCODED) {
+            ParseBody();
+        }
+        return kv;
+    }
+    std::string GetUrlEncoded(const char* key, const std::string& defvalue = hv::empty_string) {
+        if (kv.empty() && ContentType() == X_WWW_FORM_URLENCODED) {
+            ParseBody();
+        }
+        auto iter = kv.find(key);
+        return iter == kv.end() ? defvalue : iter->second;
     }
 #endif
 
@@ -215,7 +283,7 @@ public:
     void SetHeader(const char* key, const std::string& value) {
         headers[key] = value;
     }
-    std::string GetHeader(const char* key, const std::string& defvalue = "") {
+    std::string GetHeader(const char* key, const std::string& defvalue = hv::empty_string) {
         auto iter = headers.find(key);
         return iter == headers.end() ? defvalue : iter->second;
     }
@@ -325,7 +393,8 @@ public:
     // client_addr
     HNetAddr            client_addr;    // for http server save client addr of request
     int                 timeout;        // for http client timeout
-    bool                redirect;       // for http_client redirect
+    unsigned            redirect: 1;    // for http_client redirect
+    unsigned            proxy   : 1;    // for http_client proxy
 
     HttpRequest() : HttpMessage() {
         type = HTTP_REQUEST;
@@ -341,7 +410,8 @@ public:
         port = DEFAULT_HTTP_PORT;
         path = "/";
         timeout = 0;
-        redirect = true;
+        redirect = 1;
+        proxy = 0;
     }
 
     virtual void Reset() {
@@ -359,6 +429,12 @@ public:
     }
     const char* Method() {
         return http_method_str(method);
+    }
+
+    // scheme
+    bool IsHttps() {
+        return strncmp(scheme.c_str(), "https", 5) == 0 ||
+               strncmp(url.c_str(), "https://", 8) == 0;
     }
 
     // url
@@ -382,10 +458,11 @@ public:
     }
 
     // ?query_params
-    void SetParam(const char* key, const std::string& value) {
-        query_params[key] = value;
+    template<typename T>
+    void SetParam(const char* key, const T& t) {
+        query_params[key] = hv::to_string(t);
     }
-    std::string GetParam(const char* key, const std::string& defvalue = "") {
+    std::string GetParam(const char* key, const std::string& defvalue = hv::empty_string) {
         auto iter = query_params.find(key);
         return iter == query_params.end() ? defvalue : iter->second;
     }
@@ -395,6 +472,9 @@ public:
         auto iter = headers.find("Host");
         return iter == headers.end() ? host : iter->second;
     }
+    void FillHost(const char* host, int port = DEFAULT_HTTP_PORT);
+    void SetHost(const char* host, int port = DEFAULT_HTTP_PORT);
+    void SetProxy(const char* host, int port);
 
     // Range: bytes=0-4095
     void SetRange(long from = 0, long to = -1) {

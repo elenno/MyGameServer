@@ -17,7 +17,8 @@ NetworkModule::~NetworkModule()
 int NetworkModule::Init()
 {
 	m_init_data.listen_port = 8888;
-	m_init_data.enable_unpack = false;
+	m_init_data.enable_unpack = true;
+	m_init_data.unpack_setting.length_field_coding = ENCODE_BY_LITTEL_ENDIAN;
 	m_init_data.worker_num = 4;
 
 	return 0;
@@ -75,9 +76,13 @@ void NetworkModule::OnMessage(const hv::SocketChannelPtr& channel, hv::Buffer* b
 {
 	printf("OnMessage peeraddr[%s] msg[%s] length[%u]\n", channel->peeraddr().c_str(), (const char*)buffer->data(), (unsigned int)buffer->size());
 
+	unsigned int length = *(unsigned int*)((const char*)buffer->data() + m_tcp_server->unpack_setting.length_field_offset);
+	const char* body = (const char*)buffer->data() + m_tcp_server->unpack_setting.body_offset;
+
 	ModuleEventMsg msg;
 	msg.type = NETWORK_TO_BUSINESS;
-	msg.CopyFromHVBuffer(buffer);
+	msg.CopyFromBuffer(body, length);
+
 	ModuleManager::Instance().PostEvent(MODULE_TYPE_BUSINESS, msg);
 }
 

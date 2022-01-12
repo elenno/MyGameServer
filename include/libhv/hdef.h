@@ -27,6 +27,7 @@
 #define BITGET(i, n) ((i) & (1u << (n)))
 #endif
 
+/*
 #ifndef CR
 #define CR      '\r'
 #endif
@@ -38,6 +39,7 @@
 #ifndef CRLF
 #define CRLF    "\r\n"
 #endif
+*/
 
 #define FLOAT_PRECISION     1e-6
 #define FLOAT_EQUAL_ZERO(f) (ABS(f) < FLOAT_PRECISION)
@@ -226,6 +228,10 @@ ASCII:
 
 #ifndef SAFE_RELEASE
 #define SAFE_RELEASE(p) do {if (p) {(p)->release(); (p) = NULL;}} while(0)
+#endif
+
+#ifndef SAFE_CLOSE
+#define SAFE_CLOSE(fd)  do {if ((fd) >= 0) {close(fd); (fd) = -1;}} while(0)
 #endif
 
 #define STRINGIFY(x)    STRINGIFY_HELPER(x)

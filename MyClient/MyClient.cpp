@@ -5,6 +5,21 @@
 #include "libhv/TcpClient.h"
 #include "libhv/EventLoop.h"
 #include "libhv/htime.h"
+#include "libhv/hbuf.h"
+
+
+
+void Send(const hv::SocketChannelPtr& channel, void* data, unsigned int length)
+{
+	static char UNPACK_FLAG = UNPACK_BY_LENGTH_FIELD;
+	static HVLBuf send_buffer;
+	send_buffer.clear();
+	send_buffer.append(&UNPACK_FLAG, sizeof(UNPACK_FLAG));
+	send_buffer.append(&length, sizeof(length));
+	send_buffer.append(data, length);
+
+	channel->write(send_buffer.data(), send_buffer.size());
+}
 
 int main()
 {
@@ -26,7 +41,7 @@ int main()
 					char str[DATETIME_FMT_BUFLEN] = { 0 };
 					datetime_t dt = datetime_now();
 					datetime_fmt(&dt, str);
-					channel->write(str);
+					Send(channel, str, strnlen(str, sizeof(str)));
 				}
 				else {
 					hv::killTimer(timerID);
@@ -50,6 +65,8 @@ int main()
 	reconn.max_delay = 10000;
 	reconn.delay_policy = 2;
 	client.setReconnect(&reconn);
+	unpack_setting_s setting;
+	client.enable_unpack = true;
 	client.start();
 
 	while (1) hv_sleep(1);

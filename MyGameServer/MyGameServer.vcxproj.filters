@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="proto">
+      <UniqueIdentifier>{39b22b04-699a-4bae-812c-c98c60075ebf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="proto\testPackage">
+      <UniqueIdentifier>{df987682-8160-4e59-b624-f004d137b26e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyGameServer.cpp">
@@ -32,6 +38,9 @@
     </ClCompile>
     <ClCompile Include="..\servercommon\businessmodule\businessmodule.cpp">
       <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.cc">
+      <Filter>proto\testPackage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -56,5 +65,13 @@
     <ClInclude Include="..\servercommon\businessmodule\businessmodule.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
+    <ClInclude Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.h">
+      <Filter>proto\testPackage</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\servercommon\protobuf\proto\testPackage.testProto.proto">
+      <Filter>proto\testPackage</Filter>
+    </None>
   </ItemGroup>
 </Project>
