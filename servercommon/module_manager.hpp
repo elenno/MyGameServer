@@ -18,7 +18,7 @@ public:
 	static ModuleManager& Instance();
 
 	bool RegisterModule(const std::string& module_name, IModule* module_ptr);
-	bool PostEvent(const std::string& module_name, const ModuleEventMsg& msg);
+	bool PostEvent(const std::string& module_name, const ModuleEventMsg* msg);
 	IModule* GetModuleByName(const std::string& module_name);
 
 	void Run();

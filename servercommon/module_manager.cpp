@@ -16,17 +16,18 @@ bool ModuleManager::RegisterModule(const std::string& module_name, IModule* modu
 	return true;
 }
 
-bool ModuleManager::PostEvent(const std::string& module_name, const ModuleEventMsg& msg)
+bool ModuleManager::PostEvent(const std::string& module_name, const ModuleEventMsg* msg)
 {
 	IModule* mod = this->GetModuleByName(module_name);
 	if (nullptr == mod) return false;
 
 	mod->GetEventLoop()->postEvent([mod, &msg](hv::Event* ev) {
-		mod->OnEventMessage(msg);
-		if (msg.buffer != nullptr)
+		mod->OnEventMessage(*msg);
+		if (msg->buffer != nullptr)
 		{
-			msg.Free();
+			msg->Free();
 		}
+		delete msg;
 	});
 
 	return true;

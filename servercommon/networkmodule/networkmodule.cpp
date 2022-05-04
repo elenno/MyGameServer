@@ -79,9 +79,9 @@ void NetworkModule::OnMessage(const hv::SocketChannelPtr& channel, hv::Buffer* b
 	unsigned int length = *(unsigned int*)((const char*)buffer->data() + m_tcp_server->unpack_setting.length_field_offset);
 	const char* body = (const char*)buffer->data() + m_tcp_server->unpack_setting.body_offset;
 
-	ModuleEventMsg msg;
-	msg.type = NETWORK_TO_BUSINESS;
-	msg.CopyFromBuffer(body, length);
+	ModuleEventMsg* msg = new ModuleEventMsg();
+	msg->type = NETWORK_TO_BUSINESS;
+	msg->CopyFromBuffer(body, length);
 
 	ModuleManager::Instance().PostEvent(MODULE_TYPE_BUSINESS, msg);
 }
