@@ -15,12 +15,18 @@ public:
 	virtual int Start() = 0;
 	virtual int Stop() = 0;
 	virtual int Release() = 0;
+	virtual int Update() = 0;
 
 	hv::EventLoopPtr GetEventLoop() { return m_loop_ptr; }
 
 	virtual void OnEventMessage(const ModuleEventMsg& msg) = 0;
 
+private:
+	
+
 protected:
+	void LoopUpdate();
+
 	hv::EventLoopPtr m_loop_ptr;
 };
 

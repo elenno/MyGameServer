@@ -1,5 +1,9 @@
 syntax = "proto3";
 
-message SearchRequest {
-  string cur_time = 1;
+message CS_SearchRequest {
+	string cur_time = 1;
+}
+
+message SC_SearchRequest {
+	string answer_msg = 1;
 }

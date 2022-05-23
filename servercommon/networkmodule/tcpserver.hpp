@@ -20,7 +20,7 @@ public:
 
     virtual ~TcpServer();
 
-    bool ListenAndStartAccept(int post, const char* host = "0.0.0.0");
+    bool ListenAndStartAccept(int port, const char* host = "0.0.0.0");
 
     //@retval >=0 listenfd, <0 error
     int createsocket(int port, const char* host = "0.0.0.0");

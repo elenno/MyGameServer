@@ -6,8 +6,9 @@
 #include "libhv/EventLoop.h"
 #include "libhv/htime.h"
 #include "libhv/hbuf.h"
-
-
+#include "servercommon/protobuf/protobufmanager.hpp"
+#include "servercommon/protocol/msgcode.h"
+#include "servercommon/protobuf/proto/testPackage.testProto.pb.h"
 
 void Send(const hv::SocketChannelPtr& channel, void* data, unsigned int length)
 {
@@ -19,6 +20,16 @@ void Send(const hv::SocketChannelPtr& channel, void* data, unsigned int length)
 	send_buffer.append(data, length);
 
 	channel->write(send_buffer.data(), send_buffer.size());
+}
+
+void Send(const hv::SocketChannelPtr& channel, int msg_type, void* msg, unsigned int msg_length)
+{
+	static HVLBuf send_buffer;
+	send_buffer.clear();
+	send_buffer.append(&msg_type, sizeof(msg_type));
+	send_buffer.append(msg, msg_length);
+
+	Send(channel, send_buffer.data(), send_buffer.size());
 }
 
 int main()
@@ -35,18 +46,27 @@ int main()
 		std::string peeraddr = channel->peeraddr();
 		if (channel->isConnected()) {
 			printf("connected to %s! connfd=%d\n", peeraddr.c_str(), channel->fd());
+
 			// send(time) every 3s
 			hv::setInterval(3000, [channel](hv::TimerID timerID) {
 				if (channel->isConnected()) {
 					char str[DATETIME_FMT_BUFLEN] = { 0 };
 					datetime_t dt = datetime_now();
 					datetime_fmt(&dt, str);
-					Send(channel, str, strnlen(str, sizeof(str)));
+
+					CS_SearchRequest* message = (CS_SearchRequest*)ProtobufMgr::Instance()->GetProtoMessage(PROTO_CS_SEARCH_REQUEST);
+					if (message)
+					{
+						message->set_cur_time(str);
+						std::string encoded_str = message->SerializeAsString();
+						int length = message->GetCachedSize();
+						Send(channel, Protocol::CS_SEARCH_REQUEST, (void*)encoded_str.data(), length);
+					}				
 				}
 				else {
 					hv::killTimer(timerID);
 				}
-				});
+			});		
 		}
 		else {
 			printf("disconnected to %s! connfd=%d\n", peeraddr.c_str(), channel->fd());

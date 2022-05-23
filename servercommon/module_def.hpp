@@ -8,7 +8,7 @@ static const char* MODULE_TYPE_BUSINESS = "BusinessModule";
 
 struct ModuleEventMsg
 {
-	ModuleEventMsg() : type(0), data_length(0), buffer(nullptr) {}
+	ModuleEventMsg() : type(0), data_length(0), buffer(nullptr), param(0) {}
 
 	void Alloc(unsigned int len) { buffer = new char[len]; data_length = len; }
 	void Free() const { delete[] buffer; }
@@ -18,12 +18,13 @@ struct ModuleEventMsg
 	int type;
 	unsigned int data_length;
 	char* buffer;
+	int param;
 };
 
 
 enum MODULE_EVENT_TYPE
 {
-	NETWORK_TO_BUSINESS = 0,
+	NETWORK_TO_BUSINESS_ON_RECV_MSG = 0,
 };
 
 

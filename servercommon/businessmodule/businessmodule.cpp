@@ -1,5 +1,6 @@
 #include "businessmodule.hpp"
 #include "servercommon/module_def.hpp"
+#include "servercommon/networkmodule/inetworkmodule.hpp"
 
 BusinessModule::BusinessModule()
 {
@@ -18,6 +19,7 @@ int BusinessModule::Init()
 
 int BusinessModule::Start()
 {
+	printf("BusinessModule::Start\n");
 	this->GetEventLoop()->run();
 	return 0;
 }
@@ -33,18 +35,27 @@ int BusinessModule::Release()
 	return 0;
 }
 
-void BusinessModule::OnEventMessage(const ModuleEventMsg& msg)
+int BusinessModule::Update()
 {
-	if (NETWORK_TO_BUSINESS == msg.type)
-	{
-		this->OnRecvMsgFromNetwork(msg.buffer, msg.data_length);
-	}
-
+	return 0;
 }
 
-void BusinessModule::OnRecvMsgFromNetwork(const char* data, unsigned int length)
+void BusinessModule::OnEventMessage(const ModuleEventMsg& msg)
 {
-	std::string msg(data, length);
-	printf("OnRecvMsgFromNetwork data[%s] length[%u]\n", msg.c_str(), (unsigned int)msg.length());
+	
+}
+
+void BusinessModule::SetNetworkModule(std::shared_ptr<INetworkModule> network)
+{
+	m_network_module = network;
+}
+
+void BusinessModule::RegisterNetworkCallback(std::shared_ptr<INetworkCallback> callback)
+{
+	std::shared_ptr<INetworkModule> network_module = m_network_module.lock();
+	if (network_module)
+	{
+		network_module->RegisterCallback(callback);
+	}
 }
 

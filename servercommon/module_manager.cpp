@@ -8,7 +8,7 @@ ModuleManager& ModuleManager::Instance()
 	return g_module_mgr;
 }
 
-bool ModuleManager::RegisterModule(const std::string& module_name, IModule* module_ptr)
+bool ModuleManager::RegisterModule(const std::string& module_name, ModulePtr module_ptr)
 {
 	if (this->CheckModuleExist(module_name)) return false;
 
@@ -18,7 +18,7 @@ bool ModuleManager::RegisterModule(const std::string& module_name, IModule* modu
 
 bool ModuleManager::PostEvent(const std::string& module_name, const ModuleEventMsg* msg)
 {
-	IModule* mod = this->GetModuleByName(module_name);
+	ModulePtr mod = this->GetModuleByName(module_name);
 	if (nullptr == mod) return false;
 
 	mod->GetEventLoop()->postEvent([mod, &msg](hv::Event* ev) {
@@ -33,7 +33,7 @@ bool ModuleManager::PostEvent(const std::string& module_name, const ModuleEventM
 	return true;
 }
 
-IModule* ModuleManager::GetModuleByName(const std::string& module_name)
+ModuleManager::ModulePtr ModuleManager::GetModuleByName(const std::string& module_name)
 {
 	ModuleMap::iterator it = m_module_map.find(module_name);
 	if (it != m_module_map.end())
@@ -51,12 +51,18 @@ void ModuleManager::Run()
 	m_loop_thread_list.reserve(m_module_map.size());
 	for (auto it = m_module_map.begin(); it != m_module_map.end(); ++it)
 	{
-		IModule* module_ptr = it->second;
+		ModulePtr module_ptr = it->second;
 		module_ptr->Init();
+	}
 
+	for (auto it = m_module_map.begin(); it != m_module_map.end(); ++it)
+	{
+		ModulePtr module_ptr = it->second;
 		hv::EventLoopThreadPtr thread = std::make_shared<hv::EventLoopThread>();
 		m_loop_thread_list.push_back(thread);
-		thread->start(true, [module_ptr]() { return module_ptr->Start(); });
+		thread->start(true, [module_ptr]() { 
+			return module_ptr->Start(); 
+		});
 	}
 }
 
@@ -64,7 +70,7 @@ void ModuleManager::Stop()
 {
 	for (auto it = m_module_map.begin(); it != m_module_map.end(); ++it)
 	{
-		IModule* module_ptr = it->second;
+		ModulePtr module_ptr = it->second;
 		module_ptr->Stop();
 		module_ptr->Release();
 	}
@@ -81,7 +87,7 @@ bool ModuleManager::CheckModuleExist(const std::string& module_name)
 	return nullptr != this->GetModuleByName(module_name);
 }
 
-void ModuleManager::RegisterModuleImpl(const std::string& module_name, IModule* module_ptr)
+void ModuleManager::RegisterModuleImpl(const std::string& module_name, ModulePtr module_ptr)
 {
 	m_module_map.insert(ModuleMap::value_type(module_name, module_ptr));
 }

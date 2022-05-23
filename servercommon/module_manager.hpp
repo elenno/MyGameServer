@@ -11,15 +11,16 @@ struct ModuleEventMsg;
 class ModuleManager
 {
 public:
-	typedef std::map<std::string, IModule*> ModuleMap;
+	typedef std::shared_ptr<IModule> ModulePtr;
+	typedef std::map<std::string, ModulePtr> ModuleMap;
 	typedef std::vector<hv::EventLoopThreadPtr> LoopThreadList;
 
 public:
 	static ModuleManager& Instance();
 
-	bool RegisterModule(const std::string& module_name, IModule* module_ptr);
+	bool RegisterModule(const std::string& module_name, ModulePtr module_ptr);
 	bool PostEvent(const std::string& module_name, const ModuleEventMsg* msg);
-	IModule* GetModuleByName(const std::string& module_name);
+	ModulePtr GetModuleByName(const std::string& module_name);
 
 	void Run();
 	void Stop();
@@ -30,7 +31,7 @@ private:
 	ModuleManager(const ModuleManager&);
 
 	bool CheckModuleExist(const std::string& module_name);
-	void RegisterModuleImpl(const std::string& module_name, IModule* module_ptr);
+	void RegisterModuleImpl(const std::string& module_name, ModulePtr module_ptr);
 
 	ModuleMap m_module_map;
 	LoopThreadList m_loop_thread_list;

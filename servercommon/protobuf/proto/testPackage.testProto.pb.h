@@ -47,39 +47,43 @@ struct TableStruct_proto_2ftestPackage_2etestProto_2eproto {
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::AuxillaryParseTableField aux[]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
-  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[1]
+  static const ::PROTOBUF_NAMESPACE_ID::internal::ParseTable schema[2]
     PROTOBUF_SECTION_VARIABLE(protodesc_cold);
   static const ::PROTOBUF_NAMESPACE_ID::internal::FieldMetadata field_metadata[];
   static const ::PROTOBUF_NAMESPACE_ID::internal::SerializationTable serialization_table[];
   static const ::PROTOBUF_NAMESPACE_ID::uint32 offsets[];
 };
 extern const ::PROTOBUF_NAMESPACE_ID::internal::DescriptorTable descriptor_table_proto_2ftestPackage_2etestProto_2eproto;
-class SearchRequest;
-class SearchRequestDefaultTypeInternal;
-extern SearchRequestDefaultTypeInternal _SearchRequest_default_instance_;
+class CS_SearchRequest;
+class CS_SearchRequestDefaultTypeInternal;
+extern CS_SearchRequestDefaultTypeInternal _CS_SearchRequest_default_instance_;
+class SC_SearchRequest;
+class SC_SearchRequestDefaultTypeInternal;
+extern SC_SearchRequestDefaultTypeInternal _SC_SearchRequest_default_instance_;
 PROTOBUF_NAMESPACE_OPEN
-template<> ::SearchRequest* Arena::CreateMaybeMessage<::SearchRequest>(Arena*);
+template<> ::CS_SearchRequest* Arena::CreateMaybeMessage<::CS_SearchRequest>(Arena*);
+template<> ::SC_SearchRequest* Arena::CreateMaybeMessage<::SC_SearchRequest>(Arena*);
 PROTOBUF_NAMESPACE_CLOSE
 
 // ===================================================================
 
-class SearchRequest PROTOBUF_FINAL :
-    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SearchRequest) */ {
+class CS_SearchRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:CS_SearchRequest) */ {
  public:
-  inline SearchRequest() : SearchRequest(nullptr) {};
-  virtual ~SearchRequest();
+  inline CS_SearchRequest() : CS_SearchRequest(nullptr) {};
+  virtual ~CS_SearchRequest();
 
-  SearchRequest(const SearchRequest& from);
-  SearchRequest(SearchRequest&& from) noexcept
-    : SearchRequest() {
+  CS_SearchRequest(const CS_SearchRequest& from);
+  CS_SearchRequest(CS_SearchRequest&& from) noexcept
+    : CS_SearchRequest() {
     *this = ::std::move(from);
   }
 
-  inline SearchRequest& operator=(const SearchRequest& from) {
+  inline CS_SearchRequest& operator=(const CS_SearchRequest& from) {
     CopyFrom(from);
     return *this;
   }
-  inline SearchRequest& operator=(SearchRequest&& from) noexcept {
+  inline CS_SearchRequest& operator=(CS_SearchRequest&& from) noexcept {
     if (GetArena() == from.GetArena()) {
       if (this != &from) InternalSwap(&from);
     } else {
@@ -97,20 +101,20 @@ class SearchRequest PROTOBUF_FINAL :
   static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
     return GetMetadataStatic().reflection;
   }
-  static const SearchRequest& default_instance();
+  static const CS_SearchRequest& default_instance();
 
   static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
-  static inline const SearchRequest* internal_default_instance() {
-    return reinterpret_cast<const SearchRequest*>(
-               &_SearchRequest_default_instance_);
+  static inline const CS_SearchRequest* internal_default_instance() {
+    return reinterpret_cast<const CS_SearchRequest*>(
+               &_CS_SearchRequest_default_instance_);
   }
   static constexpr int kIndexInFileMessages =
     0;
 
-  friend void swap(SearchRequest& a, SearchRequest& b) {
+  friend void swap(CS_SearchRequest& a, CS_SearchRequest& b) {
     a.Swap(&b);
   }
-  inline void Swap(SearchRequest* other) {
+  inline void Swap(CS_SearchRequest* other) {
     if (other == this) return;
     if (GetArena() == other->GetArena()) {
       InternalSwap(other);
@@ -118,7 +122,7 @@ class SearchRequest PROTOBUF_FINAL :
       ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
     }
   }
-  void UnsafeArenaSwap(SearchRequest* other) {
+  void UnsafeArenaSwap(CS_SearchRequest* other) {
     if (other == this) return;
     GOOGLE_DCHECK(GetArena() == other->GetArena());
     InternalSwap(other);
@@ -126,17 +130,17 @@ class SearchRequest PROTOBUF_FINAL :
 
   // implements Message ----------------------------------------------
 
-  inline SearchRequest* New() const final {
-    return CreateMaybeMessage<SearchRequest>(nullptr);
+  inline CS_SearchRequest* New() const final {
+    return CreateMaybeMessage<CS_SearchRequest>(nullptr);
   }
 
-  SearchRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
-    return CreateMaybeMessage<SearchRequest>(arena);
+  CS_SearchRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<CS_SearchRequest>(arena);
   }
   void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
   void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
-  void CopyFrom(const SearchRequest& from);
-  void MergeFrom(const SearchRequest& from);
+  void CopyFrom(const CS_SearchRequest& from);
+  void MergeFrom(const CS_SearchRequest& from);
   PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
   bool IsInitialized() const final;
 
@@ -150,13 +154,13 @@ class SearchRequest PROTOBUF_FINAL :
   inline void SharedCtor();
   inline void SharedDtor();
   void SetCachedSize(int size) const final;
-  void InternalSwap(SearchRequest* other);
+  void InternalSwap(CS_SearchRequest* other);
   friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
   static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
-    return "SearchRequest";
+    return "CS_SearchRequest";
   }
   protected:
-  explicit SearchRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  explicit CS_SearchRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
   private:
   static void ArenaDtor(void* object);
   inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
@@ -203,7 +207,7 @@ class SearchRequest PROTOBUF_FINAL :
   std::string* _internal_mutable_cur_time();
   public:
 
-  // @@protoc_insertion_point(class_scope:SearchRequest)
+  // @@protoc_insertion_point(class_scope:CS_SearchRequest)
  private:
   class _Internal;
 
@@ -211,6 +215,159 @@ class SearchRequest PROTOBUF_FINAL :
   typedef void InternalArenaConstructable_;
   typedef void DestructorSkippable_;
   ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr cur_time_;
+  mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
+  friend struct ::TableStruct_proto_2ftestPackage_2etestProto_2eproto;
+};
+// -------------------------------------------------------------------
+
+class SC_SearchRequest PROTOBUF_FINAL :
+    public ::PROTOBUF_NAMESPACE_ID::Message /* @@protoc_insertion_point(class_definition:SC_SearchRequest) */ {
+ public:
+  inline SC_SearchRequest() : SC_SearchRequest(nullptr) {};
+  virtual ~SC_SearchRequest();
+
+  SC_SearchRequest(const SC_SearchRequest& from);
+  SC_SearchRequest(SC_SearchRequest&& from) noexcept
+    : SC_SearchRequest() {
+    *this = ::std::move(from);
+  }
+
+  inline SC_SearchRequest& operator=(const SC_SearchRequest& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline SC_SearchRequest& operator=(SC_SearchRequest&& from) noexcept {
+    if (GetArena() == from.GetArena()) {
+      if (this != &from) InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Descriptor* GetDescriptor() {
+    return GetMetadataStatic().descriptor;
+  }
+  static const ::PROTOBUF_NAMESPACE_ID::Reflection* GetReflection() {
+    return GetMetadataStatic().reflection;
+  }
+  static const SC_SearchRequest& default_instance();
+
+  static void InitAsDefaultInstance();  // FOR INTERNAL USE ONLY
+  static inline const SC_SearchRequest* internal_default_instance() {
+    return reinterpret_cast<const SC_SearchRequest*>(
+               &_SC_SearchRequest_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages =
+    1;
+
+  friend void swap(SC_SearchRequest& a, SC_SearchRequest& b) {
+    a.Swap(&b);
+  }
+  inline void Swap(SC_SearchRequest* other) {
+    if (other == this) return;
+    if (GetArena() == other->GetArena()) {
+      InternalSwap(other);
+    } else {
+      ::PROTOBUF_NAMESPACE_ID::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(SC_SearchRequest* other) {
+    if (other == this) return;
+    GOOGLE_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  inline SC_SearchRequest* New() const final {
+    return CreateMaybeMessage<SC_SearchRequest>(nullptr);
+  }
+
+  SC_SearchRequest* New(::PROTOBUF_NAMESPACE_ID::Arena* arena) const final {
+    return CreateMaybeMessage<SC_SearchRequest>(arena);
+  }
+  void CopyFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void MergeFrom(const ::PROTOBUF_NAMESPACE_ID::Message& from) final;
+  void CopyFrom(const SC_SearchRequest& from);
+  void MergeFrom(const SC_SearchRequest& from);
+  PROTOBUF_ATTRIBUTE_REINITIALIZES void Clear() final;
+  bool IsInitialized() const final;
+
+  size_t ByteSizeLong() const final;
+  const char* _InternalParse(const char* ptr, ::PROTOBUF_NAMESPACE_ID::internal::ParseContext* ctx) final;
+  ::PROTOBUF_NAMESPACE_ID::uint8* _InternalSerialize(
+      ::PROTOBUF_NAMESPACE_ID::uint8* target, ::PROTOBUF_NAMESPACE_ID::io::EpsCopyOutputStream* stream) const final;
+  int GetCachedSize() const final { return _cached_size_.Get(); }
+
+  private:
+  inline void SharedCtor();
+  inline void SharedDtor();
+  void SetCachedSize(int size) const final;
+  void InternalSwap(SC_SearchRequest* other);
+  friend class ::PROTOBUF_NAMESPACE_ID::internal::AnyMetadata;
+  static ::PROTOBUF_NAMESPACE_ID::StringPiece FullMessageName() {
+    return "SC_SearchRequest";
+  }
+  protected:
+  explicit SC_SearchRequest(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  private:
+  static void ArenaDtor(void* object);
+  inline void RegisterArenaDtor(::PROTOBUF_NAMESPACE_ID::Arena* arena);
+  public:
+
+  ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadata() const final;
+  private:
+  static ::PROTOBUF_NAMESPACE_ID::Metadata GetMetadataStatic() {
+    ::PROTOBUF_NAMESPACE_ID::internal::AssignDescriptors(&::descriptor_table_proto_2ftestPackage_2etestProto_2eproto);
+    return ::descriptor_table_proto_2ftestPackage_2etestProto_2eproto.file_level_metadata[kIndexInFileMessages];
+  }
+
+  public:
+
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+
+  enum : int {
+    kAnswerMsgFieldNumber = 1,
+  };
+  // string answer_msg = 1;
+  void clear_answer_msg();
+  const std::string& answer_msg() const;
+  void set_answer_msg(const std::string& value);
+  void set_answer_msg(std::string&& value);
+  void set_answer_msg(const char* value);
+  void set_answer_msg(const char* value, size_t size);
+  std::string* mutable_answer_msg();
+  std::string* release_answer_msg();
+  void set_allocated_answer_msg(std::string* answer_msg);
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  std::string* unsafe_arena_release_answer_msg();
+  GOOGLE_PROTOBUF_RUNTIME_DEPRECATED("The unsafe_arena_ accessors for"
+  "    string fields are deprecated and will be removed in a"
+  "    future release.")
+  void unsafe_arena_set_allocated_answer_msg(
+      std::string* answer_msg);
+  private:
+  const std::string& _internal_answer_msg() const;
+  void _internal_set_answer_msg(const std::string& value);
+  std::string* _internal_mutable_answer_msg();
+  public:
+
+  // @@protoc_insertion_point(class_scope:SC_SearchRequest)
+ private:
+  class _Internal;
+
+  template <typename T> friend class ::PROTOBUF_NAMESPACE_ID::Arena::InternalHelper;
+  typedef void InternalArenaConstructable_;
+  typedef void DestructorSkippable_;
+  ::PROTOBUF_NAMESPACE_ID::internal::ArenaStringPtr answer_msg_;
   mutable ::PROTOBUF_NAMESPACE_ID::internal::CachedSize _cached_size_;
   friend struct ::TableStruct_proto_2ftestPackage_2etestProto_2eproto;
 };
@@ -223,60 +380,60 @@ class SearchRequest PROTOBUF_FINAL :
   #pragma GCC diagnostic push
   #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
-// SearchRequest
+// CS_SearchRequest
 
 // string cur_time = 1;
-inline void SearchRequest::clear_cur_time() {
+inline void CS_SearchRequest::clear_cur_time() {
   cur_time_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline const std::string& SearchRequest::cur_time() const {
-  // @@protoc_insertion_point(field_get:SearchRequest.cur_time)
+inline const std::string& CS_SearchRequest::cur_time() const {
+  // @@protoc_insertion_point(field_get:CS_SearchRequest.cur_time)
   return _internal_cur_time();
 }
-inline void SearchRequest::set_cur_time(const std::string& value) {
+inline void CS_SearchRequest::set_cur_time(const std::string& value) {
   _internal_set_cur_time(value);
-  // @@protoc_insertion_point(field_set:SearchRequest.cur_time)
+  // @@protoc_insertion_point(field_set:CS_SearchRequest.cur_time)
 }
-inline std::string* SearchRequest::mutable_cur_time() {
-  // @@protoc_insertion_point(field_mutable:SearchRequest.cur_time)
+inline std::string* CS_SearchRequest::mutable_cur_time() {
+  // @@protoc_insertion_point(field_mutable:CS_SearchRequest.cur_time)
   return _internal_mutable_cur_time();
 }
-inline const std::string& SearchRequest::_internal_cur_time() const {
+inline const std::string& CS_SearchRequest::_internal_cur_time() const {
   return cur_time_.Get();
 }
-inline void SearchRequest::_internal_set_cur_time(const std::string& value) {
+inline void CS_SearchRequest::_internal_set_cur_time(const std::string& value) {
   
   cur_time_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
 }
-inline void SearchRequest::set_cur_time(std::string&& value) {
+inline void CS_SearchRequest::set_cur_time(std::string&& value) {
   
   cur_time_.Set(
     &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
-  // @@protoc_insertion_point(field_set_rvalue:SearchRequest.cur_time)
+  // @@protoc_insertion_point(field_set_rvalue:CS_SearchRequest.cur_time)
 }
-inline void SearchRequest::set_cur_time(const char* value) {
+inline void CS_SearchRequest::set_cur_time(const char* value) {
   GOOGLE_DCHECK(value != nullptr);
   
   cur_time_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
               GetArena());
-  // @@protoc_insertion_point(field_set_char:SearchRequest.cur_time)
+  // @@protoc_insertion_point(field_set_char:CS_SearchRequest.cur_time)
 }
-inline void SearchRequest::set_cur_time(const char* value,
+inline void CS_SearchRequest::set_cur_time(const char* value,
     size_t size) {
   
   cur_time_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
       reinterpret_cast<const char*>(value), size), GetArena());
-  // @@protoc_insertion_point(field_set_pointer:SearchRequest.cur_time)
+  // @@protoc_insertion_point(field_set_pointer:CS_SearchRequest.cur_time)
 }
-inline std::string* SearchRequest::_internal_mutable_cur_time() {
+inline std::string* CS_SearchRequest::_internal_mutable_cur_time() {
   
   return cur_time_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline std::string* SearchRequest::release_cur_time() {
-  // @@protoc_insertion_point(field_release:SearchRequest.cur_time)
+inline std::string* CS_SearchRequest::release_cur_time() {
+  // @@protoc_insertion_point(field_release:CS_SearchRequest.cur_time)
   return cur_time_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
 }
-inline void SearchRequest::set_allocated_cur_time(std::string* cur_time) {
+inline void CS_SearchRequest::set_allocated_cur_time(std::string* cur_time) {
   if (cur_time != nullptr) {
     
   } else {
@@ -284,16 +441,16 @@ inline void SearchRequest::set_allocated_cur_time(std::string* cur_time) {
   }
   cur_time_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), cur_time,
       GetArena());
-  // @@protoc_insertion_point(field_set_allocated:SearchRequest.cur_time)
+  // @@protoc_insertion_point(field_set_allocated:CS_SearchRequest.cur_time)
 }
-inline std::string* SearchRequest::unsafe_arena_release_cur_time() {
-  // @@protoc_insertion_point(field_unsafe_arena_release:SearchRequest.cur_time)
+inline std::string* CS_SearchRequest::unsafe_arena_release_cur_time() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:CS_SearchRequest.cur_time)
   GOOGLE_DCHECK(GetArena() != nullptr);
   
   return cur_time_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       GetArena());
 }
-inline void SearchRequest::unsafe_arena_set_allocated_cur_time(
+inline void CS_SearchRequest::unsafe_arena_set_allocated_cur_time(
     std::string* cur_time) {
   GOOGLE_DCHECK(GetArena() != nullptr);
   if (cur_time != nullptr) {
@@ -303,12 +460,99 @@ inline void SearchRequest::unsafe_arena_set_allocated_cur_time(
   }
   cur_time_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
       cur_time, GetArena());
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SearchRequest.cur_time)
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:CS_SearchRequest.cur_time)
+}
+
+// -------------------------------------------------------------------
+
+// SC_SearchRequest
+
+// string answer_msg = 1;
+inline void SC_SearchRequest::clear_answer_msg() {
+  answer_msg_.ClearToEmpty(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline const std::string& SC_SearchRequest::answer_msg() const {
+  // @@protoc_insertion_point(field_get:SC_SearchRequest.answer_msg)
+  return _internal_answer_msg();
+}
+inline void SC_SearchRequest::set_answer_msg(const std::string& value) {
+  _internal_set_answer_msg(value);
+  // @@protoc_insertion_point(field_set:SC_SearchRequest.answer_msg)
+}
+inline std::string* SC_SearchRequest::mutable_answer_msg() {
+  // @@protoc_insertion_point(field_mutable:SC_SearchRequest.answer_msg)
+  return _internal_mutable_answer_msg();
+}
+inline const std::string& SC_SearchRequest::_internal_answer_msg() const {
+  return answer_msg_.Get();
+}
+inline void SC_SearchRequest::_internal_set_answer_msg(const std::string& value) {
+  
+  answer_msg_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), value, GetArena());
+}
+inline void SC_SearchRequest::set_answer_msg(std::string&& value) {
+  
+  answer_msg_.Set(
+    &::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::move(value), GetArena());
+  // @@protoc_insertion_point(field_set_rvalue:SC_SearchRequest.answer_msg)
+}
+inline void SC_SearchRequest::set_answer_msg(const char* value) {
+  GOOGLE_DCHECK(value != nullptr);
+  
+  answer_msg_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(value),
+              GetArena());
+  // @@protoc_insertion_point(field_set_char:SC_SearchRequest.answer_msg)
+}
+inline void SC_SearchRequest::set_answer_msg(const char* value,
+    size_t size) {
+  
+  answer_msg_.Set(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), ::std::string(
+      reinterpret_cast<const char*>(value), size), GetArena());
+  // @@protoc_insertion_point(field_set_pointer:SC_SearchRequest.answer_msg)
+}
+inline std::string* SC_SearchRequest::_internal_mutable_answer_msg() {
+  
+  return answer_msg_.Mutable(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline std::string* SC_SearchRequest::release_answer_msg() {
+  // @@protoc_insertion_point(field_release:SC_SearchRequest.answer_msg)
+  return answer_msg_.Release(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), GetArena());
+}
+inline void SC_SearchRequest::set_allocated_answer_msg(std::string* answer_msg) {
+  if (answer_msg != nullptr) {
+    
+  } else {
+    
+  }
+  answer_msg_.SetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(), answer_msg,
+      GetArena());
+  // @@protoc_insertion_point(field_set_allocated:SC_SearchRequest.answer_msg)
+}
+inline std::string* SC_SearchRequest::unsafe_arena_release_answer_msg() {
+  // @@protoc_insertion_point(field_unsafe_arena_release:SC_SearchRequest.answer_msg)
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  
+  return answer_msg_.UnsafeArenaRelease(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      GetArena());
+}
+inline void SC_SearchRequest::unsafe_arena_set_allocated_answer_msg(
+    std::string* answer_msg) {
+  GOOGLE_DCHECK(GetArena() != nullptr);
+  if (answer_msg != nullptr) {
+    
+  } else {
+    
+  }
+  answer_msg_.UnsafeArenaSetAllocated(&::PROTOBUF_NAMESPACE_ID::internal::GetEmptyStringAlreadyInited(),
+      answer_msg, GetArena());
+  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:SC_SearchRequest.answer_msg)
 }
 
 #ifdef __GNUC__
   #pragma GCC diagnostic pop
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
 
 // @@protoc_insertion_point(namespace_scope)
 

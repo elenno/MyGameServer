@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -147,21 +147,32 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\servercommon\businessmodule\businessmodule.cpp" />
+    <ClCompile Include="..\servercommon\common_function.cpp" />
     <ClCompile Include="..\servercommon\imodule.cpp" />
     <ClCompile Include="..\servercommon\module_manager.cpp" />
     <ClCompile Include="..\servercommon\networkmodule\networkmodule.cpp" />
     <ClCompile Include="..\servercommon\networkmodule\tcpserver.cpp" />
+    <ClCompile Include="..\servercommon\protobuf\protobufmanager.cpp" />
     <ClCompile Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.cc" />
+    <ClCompile Include="game\logicnetworkcallback.cpp" />
+    <ClCompile Include="game\logicmodule.cpp" />
     <ClCompile Include="MyGameServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\servercommon\businessmodule\businessmodule.hpp" />
+    <ClInclude Include="..\servercommon\common_function.hpp" />
     <ClInclude Include="..\servercommon\imodule.hpp" />
     <ClInclude Include="..\servercommon\module_def.hpp" />
     <ClInclude Include="..\servercommon\module_manager.hpp" />
+    <ClInclude Include="..\servercommon\networkmodule\inetworkcallback.hpp" />
+    <ClInclude Include="..\servercommon\networkmodule\inetworkmodule.hpp" />
     <ClInclude Include="..\servercommon\networkmodule\networkmodule.hpp" />
     <ClInclude Include="..\servercommon\networkmodule\tcpserver.hpp" />
+    <ClInclude Include="..\servercommon\protobuf\protobufmanager.hpp" />
     <ClInclude Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.h" />
+    <ClInclude Include="..\servercommon\protocol\msgcode.h" />
+    <ClInclude Include="game\logicnetworkcallback.hpp" />
+    <ClInclude Include="game\logicmodule.hpp" />
     <ClInclude Include="MyGameServer.h" />
   </ItemGroup>
   <ItemGroup>

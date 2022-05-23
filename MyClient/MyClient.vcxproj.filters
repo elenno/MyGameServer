@@ -16,12 +16,18 @@
     <Filter Include="proto">
       <UniqueIdentifier>{e9146ca9-33ab-4cb5-ab94-cec76ceeb0c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="proto\testPackage">
+      <UniqueIdentifier>{49150cd2-9c30-4e5a-8e4b-4acf453268d7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyClient.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.cc">
+      <Filter>proto\testPackage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\protobuf\protobufmanager.cpp">
       <Filter>proto</Filter>
     </ClCompile>
   </ItemGroup>
@@ -30,12 +36,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.h">
+      <Filter>proto\testPackage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\protobuf\protobufmanager.hpp">
       <Filter>proto</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\servercommon\protobuf\proto\testPackage.testProto.proto">
-      <Filter>proto</Filter>
+      <Filter>proto\testPackage</Filter>
     </None>
   </ItemGroup>
 </Project>

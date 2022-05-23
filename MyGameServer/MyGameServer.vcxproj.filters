@@ -19,6 +19,9 @@
     <Filter Include="proto\testPackage">
       <UniqueIdentifier>{df987682-8160-4e59-b624-f004d137b26e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="protocol">
+      <UniqueIdentifier>{42480c3b-ea2d-4e6f-9832-0705b95c6631}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MyGameServer.cpp">
@@ -41,6 +44,18 @@
     </ClCompile>
     <ClCompile Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.cc">
       <Filter>proto\testPackage</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\protobuf\protobufmanager.cpp">
+      <Filter>proto</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\common_function.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="game\logicmodule.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="game\logicnetworkcallback.cpp">
+      <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +82,27 @@
     </ClInclude>
     <ClInclude Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.h">
       <Filter>proto\testPackage</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\protobuf\protobufmanager.hpp">
+      <Filter>proto</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\common_function.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\networkmodule\inetworkcallback.hpp">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="game\logicmodule.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\networkmodule\inetworkmodule.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="game\logicnetworkcallback.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\protocol\msgcode.h">
+      <Filter>protocol</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

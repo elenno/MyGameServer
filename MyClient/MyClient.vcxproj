@@ -143,10 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\servercommon\protobuf\protobufmanager.cpp" />
     <ClCompile Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.cc" />
     <ClCompile Include="MyClient.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\servercommon\protobuf\protobufmanager.hpp" />
     <ClInclude Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.h" />
     <ClInclude Include="MyClient.h" />
   </ItemGroup>

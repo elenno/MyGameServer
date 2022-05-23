@@ -5,17 +5,17 @@
 #include "servercommon/networkmodule/networkmodule.hpp"
 #include "libhv/EventLoop.h"
 #include "servercommon/module_manager.hpp"
-#include "servercommon/businessmodule/businessmodule.hpp"
+#include "game/logicmodule.hpp"
 
 int main()
 {
 	hlog_set_file("log/hlog");
 
-	NetworkModule* network_module_ptr = new NetworkModule();
+	std::shared_ptr<NetworkModule> network_module_ptr = std::make_shared<NetworkModule>();
 	ModuleManager::Instance().RegisterModule("NetworkModule", network_module_ptr);
 
-	BusinessModule* business_module_ptr = new BusinessModule();
-	ModuleManager::Instance().RegisterModule("BusinessModule", business_module_ptr);
+	std::shared_ptr<LogicModule> logic_module_ptr = std::make_shared<LogicModule>();
+	ModuleManager::Instance().RegisterModule("LogicModule", logic_module_ptr);
 
 	ModuleManager::Instance().Run();
 

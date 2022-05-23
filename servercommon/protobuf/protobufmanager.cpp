@@ -1,18 +1,11 @@
 #include "protobufmanager.hpp"
 #include "google/protobuf/stubs/common.h"
-#include "servercommon/protobuf/role_battle_data.pb.h"
-#include "servercommon/protobuf/platform_battle_role_data.pb.h"
-#include "servercommon/protobuf/cloud_arena_fight_record_list.pb.h"
+#include "servercommon/protobuf/proto/testPackage.testProto.pb.h"
 
-ProtobufMgr* gProtoBufMgr = NULL;
 ProtobufMgr* ProtobufMgr::Instance()
 {
-	if (NULL == gProtoBufMgr)
-	{
-		gProtoBufMgr = new ProtobufMgr();
-	}
-
-	return gProtoBufMgr;
+	static ProtobufMgr instance;
+	return &instance;
 }
 
 google::protobuf::Message* ProtobufMgr::GetProtoMessage(int type)
@@ -26,7 +19,7 @@ google::protobuf::Message* ProtobufMgr::GetProtoMessage(int type)
 	{
 #ifdef _DEBUG
 		// 检测可能出现的因使用不当导致Message实例变得臃肿的情况
-		int spaceused = m_proto_list[type]->SpaceUsed();
+		long long spaceused = m_proto_list[type]->SpaceUsedLong();
 		if (spaceused > 500000)
 		{
 			assert(0);
@@ -51,12 +44,10 @@ google::protobuf::Message* ProtobufMgr::GetProtoMessage(int type)
 
 ProtobufMgr::ProtobufMgr()
 {
-	m_proto_list[PROTO_ROLE_BATTLE_DATA] = new PB_RoleBattleData();
-	m_proto_list[PROTO_PLATFORM_ROLE_DATA] = new PB_PlatformBattleRoleData();
-	m_proto_list[PROTO_BATTLE_CHARACTER_DATA] = new PB_BattleCharacterData();
-	m_proto_list[PROTO_CLOUD_ARENA_FIGHT_RECORD_LIST_DATA] = new PB_CloudArenaFightRecordList();
+	m_proto_list[PROTO_CS_SEARCH_REQUEST] = new CS_SearchRequest();
+	m_proto_list[PROTO_SC_SEARCH_REQUEST] = new SC_SearchRequest();
 
-	UNSTD_STATIC_CHECK(PROTO_TYPE_MAX == 4);
+	static_assert(PROTO_TYPE_MAX == 2, "Adding New Proto Should Add Here");
 
 	memset(m_used_times, 0, sizeof(m_used_times));
 }
