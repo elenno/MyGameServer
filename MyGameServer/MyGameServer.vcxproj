@@ -117,7 +117,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;HV_STATICLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;HV_STATICLIB;NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>../;../include;../servercommon/protobuf;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -149,6 +149,10 @@
     <ClCompile Include="..\servercommon\businessmodule\businessmodule.cpp" />
     <ClCompile Include="..\servercommon\common_function.cpp" />
     <ClCompile Include="..\servercommon\imodule.cpp" />
+    <ClCompile Include="..\servercommon\mempool\clmempool.cpp" />
+    <ClCompile Include="..\servercommon\mempool\mempool.cpp" />
+    <ClCompile Include="..\servercommon\mempool\serverclmempool.cpp" />
+    <ClCompile Include="..\servercommon\mempool\tsmempool.cpp" />
     <ClCompile Include="..\servercommon\module_manager.cpp" />
     <ClCompile Include="..\servercommon\networkmodule\networkmodule.cpp" />
     <ClCompile Include="..\servercommon\networkmodule\tcpserver.cpp" />
@@ -162,6 +166,10 @@
     <ClInclude Include="..\servercommon\businessmodule\businessmodule.hpp" />
     <ClInclude Include="..\servercommon\common_function.hpp" />
     <ClInclude Include="..\servercommon\imodule.hpp" />
+    <ClInclude Include="..\servercommon\mempool\clmempool.hpp" />
+    <ClInclude Include="..\servercommon\mempool\mempool.hpp" />
+    <ClInclude Include="..\servercommon\mempool\serverclmempool.h" />
+    <ClInclude Include="..\servercommon\mempool\tsmempool.hpp" />
     <ClInclude Include="..\servercommon\module_def.hpp" />
     <ClInclude Include="..\servercommon\module_manager.hpp" />
     <ClInclude Include="..\servercommon\networkmodule\inetworkcallback.hpp" />

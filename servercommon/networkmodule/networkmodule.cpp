@@ -6,6 +6,7 @@
 #include "inetworkcallback.hpp"
 #include "libhv/hsocket.h"
 #include <sstream>
+#include "servercommon/mempool/serverclmempool.h"
 
 NetworkModule::NetworkModule()
 {
@@ -170,7 +171,7 @@ void NetworkModule::CallbackOnAccept(unsigned short listen_port, int fd, const c
 
 		loop->runInLoop([=] {
 			callback->OnAccept(listen_port, fd, peer_ip, peer_port);
-			});
+		});
 	}
 }
 
@@ -215,11 +216,12 @@ void NetworkModule::CallbackOnRecv(int fd, const char* data, int length)
 			continue;
 		}
 
-		char* buffer = new char[length]; //TODO ¼ÓÄÚ´æ³Ø
+		char* buffer = (char*) new ServerMsgMem[length];
 		memcpy(buffer, data, length);
 		loop->runInLoop([=] {
 			callback->OnRecv(fd, buffer, length);
-			delete buffer;
+			ServerMsgMem* tmp = (ServerMsgMem *) buffer;
+			delete[] tmp;
 			});
 	}
 }

@@ -57,6 +57,18 @@
     <ClCompile Include="game\logicnetworkcallback.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\servercommon\mempool\mempool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\mempool\tsmempool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\mempool\clmempool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\mempool\serverclmempool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyGameServer.h">
@@ -103,6 +115,18 @@
     </ClInclude>
     <ClInclude Include="..\servercommon\protocol\msgcode.h">
       <Filter>protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\mempool\mempool.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\mempool\tsmempool.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\mempool\clmempool.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\mempool\serverclmempool.h">
+      <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
