@@ -78,7 +78,7 @@ int LogicModule::Update()
 
 	static const int INTERVAL_MS = 250;
 	loop->setInterval(INTERVAL_MS, [](hv::TimerID t) {
-		unsigned int now_second = TimeHelper::Time();
+		unsigned int now_second = TimeHelper::Timestamp();
 		World::Instance().Update(now_second);
 	});
 

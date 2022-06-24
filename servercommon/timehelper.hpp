@@ -5,7 +5,7 @@
 
 namespace TimeHelper
 {
-	unsigned int Time()
+	unsigned int Timestamp()
 	{
 		timeval tv;
 		gettimeofday(&tv, nullptr);
