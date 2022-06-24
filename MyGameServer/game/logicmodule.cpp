@@ -2,6 +2,8 @@
 #include "logicnetworkcallback.hpp"
 #include "servercommon/networkmodule/inetworkmodule.hpp"
 #include "servercommon/module_manager.hpp"
+#include "servercommon/timehelper.hpp"
+#include "world.hpp"
 
 LogicModule::LogicModule()
 {
@@ -71,6 +73,14 @@ int LogicModule::Release()
 int LogicModule::Update()
 {
 	BusinessModule::Update();
+
+	hv::EventLoopPtr loop = this->GetEventLoop();
+
+	static const int INTERVAL_MS = 250;
+	loop->setInterval(INTERVAL_MS, [](hv::TimerID t) {
+		unsigned int now_second = TimeHelper::Time();
+		World::Instance().Update(now_second);
+	});
 
 	return 0;
 }

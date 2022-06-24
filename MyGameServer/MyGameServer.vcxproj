@@ -160,11 +160,16 @@
     <ClCompile Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.cc" />
     <ClCompile Include="game\logicnetworkcallback.cpp" />
     <ClCompile Include="game\logicmodule.cpp" />
+    <ClCompile Include="game\module\player.cpp" />
+    <ClCompile Include="game\module\playermanager.cpp" />
+    <ClCompile Include="game\module\playermodulebase.cpp" />
+    <ClCompile Include="game\world.cpp" />
     <ClCompile Include="MyGameServer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\servercommon\businessmodule\businessmodule.hpp" />
     <ClInclude Include="..\servercommon\common_function.hpp" />
+    <ClInclude Include="..\servercommon\gamedef.hpp" />
     <ClInclude Include="..\servercommon\imodule.hpp" />
     <ClInclude Include="..\servercommon\mempool\clmempool.hpp" />
     <ClInclude Include="..\servercommon\mempool\mempool.hpp" />
@@ -176,11 +181,17 @@
     <ClInclude Include="..\servercommon\networkmodule\inetworkmodule.hpp" />
     <ClInclude Include="..\servercommon\networkmodule\networkmodule.hpp" />
     <ClInclude Include="..\servercommon\networkmodule\tcpserver.hpp" />
+    <ClInclude Include="..\servercommon\playerdef.hpp" />
     <ClInclude Include="..\servercommon\protobuf\protobufmanager.hpp" />
     <ClInclude Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.h" />
     <ClInclude Include="..\servercommon\protocol\msgcode.h" />
+    <ClInclude Include="..\servercommon\timehelper.hpp" />
     <ClInclude Include="game\logicnetworkcallback.hpp" />
     <ClInclude Include="game\logicmodule.hpp" />
+    <ClInclude Include="game\module\player.hpp" />
+    <ClInclude Include="game\module\playermanager.hpp" />
+    <ClInclude Include="game\module\playermodulebase.hpp" />
+    <ClInclude Include="game\world.hpp" />
     <ClInclude Include="MyGameServer.h" />
   </ItemGroup>
   <ItemGroup>

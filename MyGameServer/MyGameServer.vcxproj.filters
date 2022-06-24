@@ -69,6 +69,18 @@
     <ClCompile Include="..\servercommon\mempool\serverclmempool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="game\module\player.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="game\module\playermanager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="game\module\playermodulebase.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="game\world.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyGameServer.h">
@@ -126,6 +138,27 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\servercommon\mempool\serverclmempool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="game\module\player.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="game\module\playermanager.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\gamedef.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\playerdef.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="game\module\playermodulebase.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="game\world.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\timehelper.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

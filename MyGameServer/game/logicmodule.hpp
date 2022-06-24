@@ -3,6 +3,7 @@
 
 #include "servercommon/businessmodule/businessmodule.hpp"
 #include <memory>
+#include "module/playermanager.hpp"
 
 class LogicNetworkCallback;
 class LogicModule : public BusinessModule, public std::enable_shared_from_this<LogicModule>
@@ -19,7 +20,6 @@ public:
 
 protected:
 	std::shared_ptr<LogicNetworkCallback> m_network_callback;
-
 };
 
 
