@@ -125,8 +125,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>hv_static.lib;libprotobufd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../lib;../lib/libhv;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>hv_static.lib;libprotobufd.lib;cpp_redis.lib;tacopie.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>../lib;../lib/libhv;../lib/cpp_redis;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -146,6 +146,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\servercommon\asynctask\asynctaskmanager.cpp" />
     <ClCompile Include="..\servercommon\businessmodule\businessmodule.cpp" />
     <ClCompile Include="..\servercommon\common_function.cpp" />
     <ClCompile Include="..\servercommon\imodule.cpp" />
@@ -158,6 +159,7 @@
     <ClCompile Include="..\servercommon\networkmodule\tcpserver.cpp" />
     <ClCompile Include="..\servercommon\protobuf\protobufmanager.cpp" />
     <ClCompile Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.cc" />
+    <ClCompile Include="..\servercommon\redis\redismanager.cpp" />
     <ClCompile Include="game\logicnetworkcallback.cpp" />
     <ClCompile Include="game\logicmodule.cpp" />
     <ClCompile Include="game\module\player.cpp" />
@@ -167,6 +169,8 @@
     <ClCompile Include="MyGameServer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\servercommon\asynctask\asynctaskmanager.hpp" />
+    <ClInclude Include="..\servercommon\asynctask\iasynctask.hpp" />
     <ClInclude Include="..\servercommon\businessmodule\businessmodule.hpp" />
     <ClInclude Include="..\servercommon\common_function.hpp" />
     <ClInclude Include="..\servercommon\gamedef.hpp" />
@@ -185,6 +189,7 @@
     <ClInclude Include="..\servercommon\protobuf\protobufmanager.hpp" />
     <ClInclude Include="..\servercommon\protobuf\proto\testPackage.testProto.pb.h" />
     <ClInclude Include="..\servercommon\protocol\msgcode.h" />
+    <ClInclude Include="..\servercommon\redis\redismanager.hpp" />
     <ClInclude Include="..\servercommon\timehelper.hpp" />
     <ClInclude Include="game\logicnetworkcallback.hpp" />
     <ClInclude Include="game\logicmodule.hpp" />

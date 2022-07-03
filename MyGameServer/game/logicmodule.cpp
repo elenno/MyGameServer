@@ -51,8 +51,9 @@ int LogicModule::Start()
 		}
 	}
 
-	BusinessModule::Start();
+	World::Instance().OnServerStart();
 
+	BusinessModule::Start(); // 这句放最后
 	return 0;
 }
 
@@ -77,7 +78,7 @@ int LogicModule::Update()
 	hv::EventLoopPtr loop = this->GetEventLoop();
 
 	static const int INTERVAL_MS = 250;
-	loop->setInterval(INTERVAL_MS, [](hv::TimerID t) {
+	loop->setInterval(INTERVAL_MS, [](hv::TimerID) {
 		unsigned int now_second = TimeHelper::Timestamp();
 		World::Instance().Update(now_second);
 	});

@@ -19,7 +19,6 @@ int BusinessModule::Init()
 
 int BusinessModule::Start()
 {
-	printf("BusinessModule::Start\n");
 	this->GetEventLoop()->run();
 	return 0;
 }

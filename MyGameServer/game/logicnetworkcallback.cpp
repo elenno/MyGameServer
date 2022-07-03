@@ -2,6 +2,7 @@
 #include "servercommon/protobuf/protobufmanager.hpp"
 #include "google/protobuf/message.h"
 #include "servercommon/protobuf/proto/testPackage.testProto.pb.h"
+#include "world.hpp"
 
 LogicNetworkCallback::LogicNetworkCallback(std::shared_ptr<LogicModule> module_ptr)
 {
@@ -31,6 +32,9 @@ void LogicNetworkCallback::OnRecv(int fd, const char* data, int length)
 	const char* proto_data = data + HEADER_LENGTH;
 	int proto_len = length - HEADER_LENGTH;
 
+	World::Instance().OnRecv(fd, proto_data, proto_len);
+
+	/*
 	CS_SearchRequest* message = (CS_SearchRequest* )ProtobufMgr::Instance()->GetProtoMessage(PROTO_CS_SEARCH_REQUEST);
 	if (NULL == message)
 	{
@@ -45,6 +49,7 @@ void LogicNetworkCallback::OnRecv(int fd, const char* data, int length)
 	}
 
 	printf("hahaha   str=%s\n", message->cur_time().c_str());
+	*/
 }
 
 void LogicNetworkCallback::OnDisconnect(int fd)

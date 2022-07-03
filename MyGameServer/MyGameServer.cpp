@@ -7,6 +7,8 @@
 #include "servercommon/module_manager.hpp"
 #include "game/logicmodule.hpp"
 
+volatile bool g_server_stop = false;
+
 int main()
 {
 	hlog_set_file("log/hlog");
@@ -19,15 +21,8 @@ int main()
 
 	ModuleManager::Instance().Run();
 
-	char command[1024] = { 0 };
-	while (gets_s(command))
-	{
-		if (strcmp(command, "stop") == 0)
-		{
-			printf("Server Will Stop Now\n");
-			break;
-		}
-	}
+	while (!g_server_stop) {}
+
 	ModuleManager::Instance().Stop();
 
 	system("pause");

@@ -45,8 +45,6 @@ int NetworkModule::Start()
 
 	m_tcp_server->start(true);
 
-	printf("NetworkModule::Start\n");
-
 	this->GetEventLoop()->run();
 	
 	return 0;

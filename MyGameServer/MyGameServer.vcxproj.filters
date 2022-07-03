@@ -81,6 +81,12 @@
     <ClCompile Include="game\world.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="..\servercommon\redis\redismanager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\servercommon\asynctask\asynctaskmanager.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyGameServer.h">
@@ -159,6 +165,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\servercommon\timehelper.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\redis\redismanager.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\asynctask\asynctaskmanager.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\servercommon\asynctask\iasynctask.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
